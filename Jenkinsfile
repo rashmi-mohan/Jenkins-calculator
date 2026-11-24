@@ -1,44 +1,37 @@
-pipeline {
 
+pipeline {
     agent any
 
     stages {
 
         stage('Checkout') {
             steps {
-                echo 'Source code checkout successful'
+                echo 'Checking out source code'
             }
         }
 
-        stage('Build') {
+        stage('Compile') {
             steps {
-                echo 'Building Java application'
-                bat 'mvn clean compile'
+                echo 'Compiling Java program'
+                bat 'javac HelloWorld.java'
             }
         }
 
-        stage('Test') {
+        stage('Run') {
             steps {
-                echo 'Running JUnit test cases'
-                bat 'mvn test'
-            }
-        }
-
-        stage('Package') {
-            steps {
-                echo 'Packaging application'
-                bat 'mvn package -DskipTests'
+                echo 'Executing Java program'
+                bat 'java HelloWorld'
             }
         }
     }
 
     post {
         success {
-            echo 'BUILD SUCCESSFUL'
+            echo 'Build Successful!'
         }
 
         failure {
-            echo 'BUILD FAILED'
+            echo 'Build Failed!'
         }
     }
 }
